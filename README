@@ -1,0 +1,8 @@
+source ../setenv.sh
+./minifs_build.sh
+sudo ./build_disk.sh
+sudo ifconfig usb0 172.16.61.1 netmask 255.255.255.0 up
+sudo ifconfig usb0 172.16.61.3 netmask 255.255.255.0 up
+ssh root@172.16.61.1 hush
+$> mkfifo /tmp/scoreboard
+

@@ -116,7 +116,8 @@ deploy-filesystem-squash() {
 deploy-filesystem-ext() {
 	local out="$BUILD"/minifs-full-ext.img
 	echo -n "     Building $out "
-	local basesize=$(du -s "$ROOTFS"|awk '{print $1;}')
+  echo -n " $ROOTFS "
+	local basesize=$(du -s "$ROOTFS"|awk '{print $1;}')*2
 	#local size=${TARGET_FS_EXT_SIZE:-8192}
 	local size=$(((($basesize*3)/2)&~512))
 	if (($size < 4096)); then size=4096; fi

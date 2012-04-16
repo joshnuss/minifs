@@ -25,6 +25,9 @@ hostname $(cat /etc/hostname) && hostname
 echo "* Configuring loopback interface..."
 ifconfig lo 127.0.0.1 up
 
+echo "* Configuring usb0"
+ifconfig usb0 10.0.1.5 netmask 255.255.255.0 up
+
 up=$(ifconfig eth0|grep addr:)
 if [ "$up" != "" ]; then
 	echo "* eth0:$up"

@@ -7,7 +7,9 @@ mount -t sysfs none /sys
 mkdir -p /dev/pts dev/shm
 mount -t devpts devpts /dev/pts
 mount -t tmpfs none /dev/shm
-mount / / -o remount,noatime,commit=20 >/dev/null 2>&1
+mount / / -o remount,rw,noatime,commit=20 >/dev/null 2>&1
+# remount as writable
+mount / -o remount,rw
 
 # echo "* Starting system loggers..."
 syslogd -C16
@@ -27,6 +29,14 @@ telnetd -l /bin/sh
 echo "* Starting Bluetooth"
 hciattach -s 115200 /dev/ttySAC0 bcm2035 921600 flow 00:00:00:00:00 >/dev/null 2>&1
 hciconfig hci0 up
+
+echo "* Starting SSH"
+dropbear
+
+#echo "* Creating scoreboard pipe"
+#mkfifo /tmp/scoreboard
+#echo "* Starting scoreboard"
+#sample
 
 #echo "* Starting PAN connection"
 #pand -c 00:11:F6:06:8B:AD

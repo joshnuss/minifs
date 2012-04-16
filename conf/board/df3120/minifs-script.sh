@@ -20,7 +20,9 @@ board_prepare() {
 	TARGET_PACKAGES+=" sdlplasma sdlvoxel"
 	TARGET_PACKAGES+=" kobodeluxe"
 	TARGET_PACKAGES+=" sdldoom"
-	TARGET_PACKAGES+=" fbvncslave"
+	TARGET_PACKAGES+=" dropbear"
+	TARGET_PACKAGES+=" sample"
+#	TARGET_PACKAGES+=" fbvncslave"
 	TARGET_PACKAGES+=" plftool"
 	hset dbus deploy false
 }

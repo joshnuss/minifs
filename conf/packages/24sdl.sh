@@ -36,7 +36,25 @@ setup-libsdlimage() {
 	# SDL_image manualy load shared libs, they are not (GGRRRRR!) in ELF 
 	ROOTFS_KEEPERS+="libpng14.so:libjpeg.so:"
 }
+
+PACKAGES+=" libfreetype"
+hset libsdlttf url "http://download.savannah.gnu.org/releases/freetype/freetype-2.3.11.tar.gz"
+hset libsdlttf depends ""
 	
+PACKAGES+=" libsdlttf"
+hset libsdlttf url "http://www.libsdl.org/projects/SDL_ttf/release/SDL_ttf-2.0.9.tar.gz"
+hset libsdlttf depends "libsdl libfreetype"
+
+configure-libsdlttf() {
+  #configure --prefix=${ROOTFS_PATH}/usr --build=`uname -m` --host=arm-v4t-linux --enable-shared --libdir=${ROOTFS}/usr/lib --includedir=${ROOTFS}/usr/include --without-x --disable-opengl --with-sdl-prefix=${STAGING}/usr
+
+  configure-generic --host=arm-v4t-linux --enable-shared --without-x --disable-opengl --libdir="$ROOTFS"/usr/lib --includedir="$STAGING_USR"/include --with-sdl-prefix="$STAGING_USR" 
+}
+
+install-libsdlttf() {
+  cp .libs/*.so "$STAGING_USR"/lib/
+}
+
 PACKAGES+=" sdlquake"
 hset sdlquake url "http://www.libsdl.org/projects/quake/src/sdlquake-1.0.9.tar.gz"
 hset sdlquake depends "libsdl"
